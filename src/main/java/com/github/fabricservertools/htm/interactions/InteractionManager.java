@@ -96,12 +96,12 @@ public class InteractionManager implements ProtectionProvider {
             if (action.requiresLock()) {
                 containerLock.ifPresentOrElse(
                         lock -> action.execute(server, player, pos, object, lock),
-                        () -> player.displayClientMessage(HTMComponents.NOT_LOCKED, false));
+                        () -> player.sendSystemMessage(HTMComponents.NOT_LOCKED, false));
             } else {
                 //noinspection DataFlowIssue - if requiresLock is false then action should be able to accept null lock
                 action.execute(server, player, pos, object, containerLock.orElse(null));
             }
-        }, () -> player.displayClientMessage(HTMComponents.NOT_LOCKABLE, false));
+        }, () -> player.sendSystemMessage(HTMComponents.NOT_LOCKABLE, false));
 
         if (!persisting.contains(player.getUUID())) {
             pendingActions.remove(player);

@@ -20,13 +20,13 @@ public class SetAction implements LockInteraction {
 	@Override
 	public void execute(MinecraftServer server, ServerPlayer player, BlockPos pos, LockableObject object, @Nullable HTMContainerLock lock) {
 		if (lock != null && !lock.isOwner(player)) {
-			player.displayClientMessage(HTMComponents.NOT_OWNER, false);
+			player.sendSystemMessage(HTMComponents.NOT_OWNER, false);
 			return;
 		}
 
 		HTMContainerLock newLock = lock != null ? lock.withData(setType) : new HTMContainerLock(setType, player);
 		object.setLock(newLock);
-		player.displayClientMessage(HTMComponents.CONTAINER_SET.apply(setType.displayName()), false);
+		player.sendSystemMessage(HTMComponents.CONTAINER_SET.apply(setType.displayName()), false);
 	}
 
 	@Override

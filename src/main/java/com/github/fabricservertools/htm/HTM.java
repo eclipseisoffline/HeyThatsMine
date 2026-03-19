@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class HTM implements ModInitializer {
+	public static final String MOD_ID = "htm";
 	public static final Logger LOGGER = LogManager.getLogger("HTM");
 
 	@Override
@@ -25,9 +26,13 @@ public class HTM implements ModInitializer {
 
         HTMCommand.bootstrap();
         CommandRegistrationCallback.EVENT.register(((dispatcher, buildContext, selection) -> HTMCommand.register(dispatcher)));
-		CommonProtection.register(Identifier.fromNamespaceAndPath("htm", "containers"), new InteractionManager());
+		CommonProtection.register(getModdedIdentifier("containers"), new InteractionManager());
 
 		PlayerEventListener.init();
 		LevelEventListener.init();
+	}
+
+	public static Identifier getModdedIdentifier(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 }

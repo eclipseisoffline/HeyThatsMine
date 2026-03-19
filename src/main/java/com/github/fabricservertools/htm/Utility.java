@@ -31,7 +31,7 @@ public class Utility {
 
 	public static void sendMessage(Player player, Component message, boolean actionBar) {
 		if (!InteractionManager.noMessage.contains(player.getUUID())) {
-			player.displayClientMessage(message, actionBar);
+			player.sendSystemMessage(message, actionBar);
 		}
 	}
 }

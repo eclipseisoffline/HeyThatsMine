@@ -21,16 +21,16 @@ public class TransferAction implements LockInteraction {
 	@Override
 	public void execute(MinecraftServer server, ServerPlayer player, BlockPos pos, LockableObject object, HTMContainerLock lock) {
 		if (!lock.isOwner(player)) {
-			player.displayClientMessage(HTMComponents.NOT_OWNER, false);
+			player.sendSystemMessage(HTMComponents.NOT_OWNER, false);
 			return;
 		}
 
 		if (lock.owner().equals(transferPlayer.id())) {
-			player.displayClientMessage(HTMComponents.CANNOT_TRUST_SELF, false);
+			player.sendSystemMessage(HTMComponents.CANNOT_TRUST_SELF, false);
 			return;
 		}
 
 		object.setLock(lock.transfer(transferPlayer.id()));
-		player.displayClientMessage(HTMComponents.CONTAINER_TRANSFER.apply(Component.literal(transferPlayer.name()).withStyle(ChatFormatting.WHITE)), false);
+		player.sendSystemMessage(HTMComponents.CONTAINER_TRANSFER.apply(Component.literal(transferPlayer.name()).withStyle(ChatFormatting.WHITE)), false);
 	}
 }

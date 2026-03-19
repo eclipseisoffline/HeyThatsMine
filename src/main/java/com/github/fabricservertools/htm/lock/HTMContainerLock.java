@@ -43,7 +43,7 @@ public record HTMContainerLock(Lock lockData, UUID owner, Set<UUID> trusted, Fla
             return true;
         }
 
-		player.displayClientMessage(HTMComponents.CONTAINER_LOCKED, true);
+		player.sendOverlayMessage(HTMComponents.CONTAINER_LOCKED);
         player.level().playSound(null, player.position().x(), player.position().y(), player.position().z(), SoundEvents.CHEST_LOCKED, SoundSource.BLOCKS, 1.0F, 1.0F);
 		return false;
 	}

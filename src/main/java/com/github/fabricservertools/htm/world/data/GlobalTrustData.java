@@ -1,5 +1,6 @@
 package com.github.fabricservertools.htm.world.data;
 
+import com.github.fabricservertools.htm.HTM;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
@@ -8,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.UUID;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
@@ -25,7 +27,10 @@ public class GlobalTrustData extends SavedData {
 			).apply(instance, GlobalTrustData::new)
 	);
 
-	public static final SavedDataType<GlobalTrustData> TYPE = new SavedDataType<>("globalTrust", GlobalTrustData::new, CODEC, null);
+	// TODO DATAFIX
+	public static final String LEGACY_ID = "globalTrust";
+	public static final Identifier ID = HTM.getModdedIdentifier("global_trust_data");
+	public static final SavedDataType<GlobalTrustData> TYPE = new SavedDataType<>(ID, GlobalTrustData::new, CODEC, null);
 
 	private final Multimap<UUID, UUID> globalTrust = HashMultimap.create();
 
