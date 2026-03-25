@@ -27,8 +27,6 @@ public class GlobalTrustData extends SavedData {
 			).apply(instance, GlobalTrustData::new)
 	);
 
-	// TODO DATAFIX
-	public static final String LEGACY_ID = "globalTrust";
 	public static final Identifier ID = HTM.getModdedIdentifier("global_trust_data");
 	public static final SavedDataType<GlobalTrustData> TYPE = new SavedDataType<>(ID, GlobalTrustData::new, CODEC, null);
 

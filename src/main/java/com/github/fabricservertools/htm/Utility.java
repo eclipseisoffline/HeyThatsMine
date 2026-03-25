@@ -22,7 +22,7 @@ public class Utility {
 	}
 
 	public static GlobalTrustData getGlobalTrustData(MinecraftServer server) {
-		return server.overworld().getDataStorage().computeIfAbsent(GlobalTrustData.TYPE);
+		return server.getDataStorage().computeIfAbsent(GlobalTrustData.TYPE);
 	}
 
 	public static void sendMessage(ServerPlayer player, Component message) {

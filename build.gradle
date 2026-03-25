@@ -12,8 +12,13 @@ base {
 repositories {
     mavenCentral()
 
-    maven{
+    maven {
         url = "https://maven.nucleoid.xyz/"
+    }
+
+    maven {
+        name = "eclipseisoffline"
+        url = "https://maven.eclipseisoffline.xyz/releases"
     }
 }
 
@@ -27,6 +32,8 @@ dependencies {
     implementation(include("xyz.nucleoid:server-translations-api:${project.translation_version}"))
     implementation(include("me.lucko:fabric-permissions-api:${project.permissions_api_version}"))
     implementation(include("eu.pb4:common-protection-api:${project.protection_api_version}"))
+
+    implementation(include("xyz.eclipseisoffline:filefixutils-fabric:${project.file_fix_utils_version}"))
 }
 
 processResources {
