@@ -39,7 +39,7 @@ public record HTMContainerLock(Lock lockData, UUID owner, Set<UUID> trusted, Fla
 	}
 
 	public boolean canOpen(ServerPlayer player) {
-		if (isOwner(player) || lockData.canOpen(player, this)) {
+		if (lockData.canOpen(player, this) || isOwner(player)) {
             return true;
         }
 

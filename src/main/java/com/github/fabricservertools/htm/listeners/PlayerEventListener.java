@@ -59,7 +59,7 @@ public class PlayerEventListener {
                 return true;
             }
 
-            if (lock.get().isOwner(playerEntity) || (HTMConfig.get().canTrustedPlayersBreakChests() && lock.get().canOpen(playerEntity))) {
+            if ((HTMConfig.get().canTrustedPlayersBreakChests() && lock.get().canOpen(playerEntity)) || lock.get().isOwner(playerEntity)) {
                 if (state.getBlock() instanceof ChestBlock) {
                     Optional<LockableObject> unlocked = InteractionManager.getUnlockedLockable((ServerLevel) level, pos, blockEntity);
                     if (unlocked.isPresent()) {
