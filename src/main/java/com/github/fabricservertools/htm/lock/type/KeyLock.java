@@ -48,7 +48,7 @@ public record KeyLock(ItemStack key) implements Lock {
 
 	@Override
 	public void onInfo(ServerPlayer player, HTMContainerLock lock) {
-		player.sendSystemMessage(HTMComponents.CONTAINER_KEY.apply(key.getDisplayName()), false);
+		player.sendSystemMessage(HTMComponents.CONTAINER_KEY.apply(key.getDisplayName()));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public record KeyLock(ItemStack key) implements Lock {
 
 	public static KeyLock fromMainHandItem(ServerPlayer player) {
 		ItemStack key = player.getMainHandItem().copy();
-		player.sendSystemMessage(HTMComponents.CONTAINER_KEY_SET.apply(key.getDisplayName()), false);
+		player.sendSystemMessage(HTMComponents.CONTAINER_KEY_SET.apply(key.getDisplayName()));
 		return new KeyLock(key);
 	}
 }

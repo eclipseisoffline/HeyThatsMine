@@ -49,7 +49,7 @@ public class TrustCommand implements SubCommand {
 				.map(uuid -> Utility.getNameFromUUID(uuid, context.getSource().getServer()))
 				.collect(Collectors.joining(", "));
 
-		player.sendSystemMessage(HTMComponents.TRUSTED_GLOBALLY.apply(Component.literal(trustedList).withStyle(ChatFormatting.WHITE)), false);
+		player.sendSystemMessage(HTMComponents.TRUSTED_GLOBALLY.apply(Component.literal(trustedList).withStyle(ChatFormatting.WHITE)));
 
 		return 0;
 	}

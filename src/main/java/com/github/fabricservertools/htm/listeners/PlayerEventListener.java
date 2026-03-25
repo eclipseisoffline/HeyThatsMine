@@ -5,7 +5,6 @@ import com.github.fabricservertools.htm.api.Lock;
 import com.github.fabricservertools.htm.config.HTMConfig;
 import com.github.fabricservertools.htm.lock.HTMContainerLock;
 import com.github.fabricservertools.htm.HTMComponents;
-import com.github.fabricservertools.htm.Utility;
 import com.github.fabricservertools.htm.api.LockableObject;
 import com.github.fabricservertools.htm.events.PlayerPlaceBlockCallback;
 import com.github.fabricservertools.htm.interactions.InteractionManager;
@@ -68,11 +67,11 @@ public class PlayerEventListener {
                     }
                 }
 
-                Utility.sendMessage(playerEntity, HTMComponents.CONTAINER_UNLOCKED);
+                playerEntity.sendSystemMessage(HTMComponents.CONTAINER_UNLOCKED);
                 return true;
             }
 
-            Utility.sendMessage(playerEntity, HTMComponents.NOT_OWNER);
+            playerEntity.sendSystemMessage(HTMComponents.NOT_OWNER);
             return false;
         }
 
@@ -99,7 +98,7 @@ public class PlayerEventListener {
                     }
 
                     ((LockableObject) blockEntity).setLock(new HTMContainerLock(autoLockingType.get().create(serverPlayer), serverPlayer));
-                    Utility.sendMessage(serverPlayer, HTMComponents.CONTAINER_SET.apply(autoLockingType.get().displayName()));
+                    serverPlayer.sendSystemMessage(HTMComponents.CONTAINER_SET.apply(autoLockingType.get().displayName()));
                 }
             }
         } catch (Exception e) {

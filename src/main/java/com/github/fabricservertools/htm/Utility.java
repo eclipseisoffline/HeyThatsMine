@@ -1,11 +1,9 @@
 package com.github.fabricservertools.htm;
 
-import com.github.fabricservertools.htm.interactions.InteractionManager;
 import com.github.fabricservertools.htm.world.data.GlobalTrustData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
 import java.util.UUID;
 
@@ -23,15 +21,5 @@ public class Utility {
 
 	public static GlobalTrustData getGlobalTrustData(MinecraftServer server) {
 		return server.getDataStorage().computeIfAbsent(GlobalTrustData.TYPE);
-	}
-
-	public static void sendMessage(ServerPlayer player, Component message) {
-		sendMessage(player, message, false);
-	}
-
-	public static void sendMessage(ServerPlayer player, Component message, boolean actionBar) {
-		if (!InteractionManager.noMessage.contains(player.getUUID())) {
-			player.sendSystemMessage(message, actionBar);
-		}
 	}
 }

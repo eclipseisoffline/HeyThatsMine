@@ -25,27 +25,27 @@ public class TrustAction implements LockInteraction {
 	@Override
 	public void execute(MinecraftServer server, ServerPlayer player, BlockPos pos, LockableObject object, HTMContainerLock lock) {
 		if (!lock.isOwner(player)) {
-			player.sendSystemMessage(HTMComponents.NOT_OWNER, false);
+			player.sendSystemMessage(HTMComponents.NOT_OWNER);
 			return;
 		}
 
 		for (NameAndId trustPlayer : trustPlayers) {
 			if (lock.owner().equals(trustPlayer.id())) {
-				player.sendSystemMessage(HTMComponents.CANNOT_TRUST_SELF, false);
+				player.sendSystemMessage(HTMComponents.CANNOT_TRUST_SELF);
 				continue;
 			}
 
             Component playerName = Component.literal(trustPlayer.name()).withStyle(ChatFormatting.WHITE);
 			if (untrust) {
 				lock.withoutTrusted(trustPlayer.id()).ifPresentOrElse(newLock -> {
-					player.sendSystemMessage(HTMComponents.UNTRUST.apply(playerName), false);
+					player.sendSystemMessage(HTMComponents.UNTRUST.apply(playerName));
 					object.setLock(newLock);
-				}, () -> player.sendSystemMessage(HTMComponents.PLAYER_NOT_TRUSTED.apply(playerName), false));
+				}, () -> player.sendSystemMessage(HTMComponents.PLAYER_NOT_TRUSTED.apply(playerName)));
 			} else {
 				lock.withTrusted(trustPlayer.id()).ifPresentOrElse(newLock -> {
-					player.sendSystemMessage(HTMComponents.TRUST.apply(playerName), false);
+					player.sendSystemMessage(HTMComponents.TRUST.apply(playerName));
 					object.setLock(newLock);
-				}, () -> player.sendSystemMessage(HTMComponents.ALREADY_TRUSTED.apply(playerName), false));
+				}, () -> player.sendSystemMessage(HTMComponents.ALREADY_TRUSTED.apply(playerName)));
 			}
 		}
 	}

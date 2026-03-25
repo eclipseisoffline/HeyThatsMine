@@ -13,11 +13,11 @@ public class RemoveAction implements LockInteraction {
 	@Override
 	public void execute(MinecraftServer server, ServerPlayer player, BlockPos pos, LockableObject object, HTMContainerLock lock) {
 		if (!lock.isOwner(player)) {
-			player.sendSystemMessage(HTMComponents.NOT_OWNER, false);
+			player.sendSystemMessage(HTMComponents.NOT_OWNER);
 			return;
 		}
 
 		object.setLock(null);
-		player.sendSystemMessage(HTMComponents.CONTAINER_UNLOCKED, false);
+		player.sendSystemMessage(HTMComponents.CONTAINER_UNLOCKED);
 	}
 }
