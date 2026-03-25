@@ -5,8 +5,8 @@ import com.github.fabricservertools.htm.world.data.GlobalTrustData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
-import net.minecraft.world.entity.player.Player;
 import java.util.UUID;
 
 public class Utility {
@@ -25,11 +25,11 @@ public class Utility {
 		return server.overworld().getDataStorage().computeIfAbsent(GlobalTrustData.TYPE);
 	}
 
-	public static void sendMessage(Player player, Component message) {
+	public static void sendMessage(ServerPlayer player, Component message) {
 		sendMessage(player, message, false);
 	}
 
-	public static void sendMessage(Player player, Component message, boolean actionBar) {
+	public static void sendMessage(ServerPlayer player, Component message, boolean actionBar) {
 		if (!InteractionManager.noMessage.contains(player.getUUID())) {
 			player.sendSystemMessage(message, actionBar);
 		}

@@ -99,7 +99,7 @@ public class PlayerEventListener {
                     }
 
                     ((LockableObject) blockEntity).setLock(new HTMContainerLock(autoLockingType.get().create(serverPlayer), serverPlayer));
-                    Utility.sendMessage(player, HTMComponents.CONTAINER_SET.apply(autoLockingType.get().displayName()));
+                    Utility.sendMessage(serverPlayer, HTMComponents.CONTAINER_SET.apply(autoLockingType.get().displayName()));
                 }
             }
         } catch (Exception e) {

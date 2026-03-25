@@ -4,7 +4,6 @@ import com.github.fabricservertools.htm.lock.HTMContainerLock;
 import com.github.fabricservertools.htm.HTMComponents;
 import com.github.fabricservertools.htm.api.LockInteraction;
 import com.github.fabricservertools.htm.api.LockableObject;
-import com.mojang.authlib.GameProfile;
 import eu.pb4.common.protection.api.ProtectionProvider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -14,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
@@ -184,7 +184,7 @@ public class InteractionManager implements ProtectionProvider {
     }
 
     @Override
-    public boolean canBreakBlock(Level world, BlockPos pos, GameProfile profile, @Nullable Player player) {
+    public boolean canBreakBlock(Level world, BlockPos pos, NameAndId profile, @Nullable Player player) {
         var lockable = InteractionManager.getLockable((ServerLevel) world, pos);
         return lockable.flatMap(LockableObject::getLock).map(lock -> lock.owner().equals(profile.id())).orElse(true);
     }
