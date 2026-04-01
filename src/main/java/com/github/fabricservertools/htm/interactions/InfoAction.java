@@ -27,18 +27,18 @@ public class InfoAction implements LockInteraction {
 			return;
 		}
 
-		player.displayClientMessage(HTMComponents.DIVIDER, false);
-		player.displayClientMessage(HTMComponents.CONTAINER_LOCK_TYPE.apply(lock.lockData().displayName()), false);
-		player.displayClientMessage(HTMComponents.CONTAINER_OWNER.apply(Component.literal(owner.get().name()).withStyle(ChatFormatting.WHITE)), false);
+		player.sendSystemMessage(HTMComponents.DIVIDER);
+		player.sendSystemMessage(HTMComponents.CONTAINER_LOCK_TYPE.apply(lock.lockData().displayName()));
+		player.sendSystemMessage(HTMComponents.CONTAINER_OWNER.apply(Component.literal(owner.get().name()).withStyle(ChatFormatting.WHITE)));
 		if (lock.isOwner(player)) {
 			String trustedList = lock.trusted()
 					.stream()
 					.map(uuid -> Utility.getNameFromUUID(uuid, server))
 					.collect(Collectors.joining(", "));
 
-			player.displayClientMessage(HTMComponents.CONTAINER_TRUSTED.apply(Component.literal(trustedList).withStyle(ChatFormatting.WHITE)), false);
+			player.sendSystemMessage(HTMComponents.CONTAINER_TRUSTED.apply(Component.literal(trustedList).withStyle(ChatFormatting.WHITE)));
 			lock.lockData().onInfo(player, lock);
 		}
-		player.displayClientMessage(HTMComponents.DIVIDER, false);
+		player.sendSystemMessage(HTMComponents.DIVIDER);
 	}
 }

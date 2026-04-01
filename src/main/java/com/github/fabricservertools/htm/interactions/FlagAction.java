@@ -39,21 +39,20 @@ public class FlagAction implements LockInteraction {
 	@Override
 	public void execute(MinecraftServer server, ServerPlayer player, BlockPos pos, LockableObject object, HTMContainerLock lock) {
 		if (!lock.isOwner(player)) {
-			player.displayClientMessage(HTMComponents.NOT_OWNER, false);
+			player.sendSystemMessage(HTMComponents.NOT_OWNER);
 			return;
 		}
 
         BlockState state = player.level().getBlockState(pos);
 		if (flagSet.isEmpty()) {
 			//flag info
-			player.displayClientMessage(HTMComponents.DIVIDER, false);
+			player.sendSystemMessage(HTMComponents.DIVIDER);
             lock.flags().forEach(state, (flag, value) -> {
-                player.displayClientMessage(HTMComponents.CONTAINER_FLAG.apply(
+                player.sendSystemMessage(HTMComponents.CONTAINER_FLAG.apply(
                                 flag.displayName(),
-                                Component.literal(value.toString().toUpperCase()).withStyle(value ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD)),
-                        false);
+                                Component.literal(value.toString().toUpperCase()).withStyle(value ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD)));
             });
-			player.displayClientMessage(HTMComponents.DIVIDER, false);
+			player.sendSystemMessage(HTMComponents.DIVIDER);
 		} else {
 			//flag set
 			FlagType flagType = flagSet.get().getFirst();
@@ -70,7 +69,7 @@ public class FlagAction implements LockInteraction {
                 feedback = HTMComponents.CONTAINER_FLAG_SET;
                 feedbackValue = value;
             }
-            player.displayClientMessage(feedback.apply(
+            player.sendSystemMessage(feedback.apply(
                             flagType.displayName(),
                             Component.literal(String.valueOf(feedbackValue).toUpperCase()).withStyle(feedbackValue ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD)),
                     false);

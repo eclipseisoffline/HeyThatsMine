@@ -10,6 +10,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,11 +40,11 @@ public record HTMContainerLock(Lock lockData, UUID owner, Set<UUID> trusted, Fla
 	}
 
 	public boolean canOpen(ServerPlayer player) {
-		if (isOwner(player) || lockData.canOpen(player, this)) {
+		if (lockData.canOpen(player, this) || isOwner(player)) {
             return true;
         }
 
-		player.displayClientMessage(HTMComponents.CONTAINER_LOCKED, true);
+		player.sendOverlayMessage(HTMComponents.CONTAINER_LOCKED);
         player.level().playSound(null, player.position().x(), player.position().y(), player.position().z(), SoundEvents.CHEST_LOCKED, SoundSource.BLOCKS, 1.0F, 1.0F);
 		return false;
 	}
@@ -84,8 +85,8 @@ public record HTMContainerLock(Lock lockData, UUID owner, Set<UUID> trusted, Fla
 
 	public boolean isOwner(ServerPlayer player) {
 		if (!owner.equals(player.getUUID())) {
-			if (Permissions.check(player, "htm.admin", 2)) {
-				Utility.sendMessage(player, HTMComponents.CONTAINER_OVERRIDE.apply(Utility.getFormattedNameFromUUID(owner, player.level().getServer())));
+			if (Permissions.check(player, "htm.admin", PermissionLevel.GAMEMASTERS)) {
+				player.sendSystemMessage(HTMComponents.CONTAINER_OVERRIDE.apply(Utility.getFormattedNameFromUUID(owner, player.level().getServer())));
 				return true;
 			}
 			return false;
